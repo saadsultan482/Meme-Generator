@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/Style.css">
+    <title>Meme Generator</title>
+</head>
+
+<body>
+
+    <div class="meme-generator">
+        <button class="generate-meme-btn">Generate Meme   </button>
+        <h2 class="meme-title">Loading......</h2>
+        <img src="" alt="">
+        <div class="meme-author"></div>
+
+        <div class="social">
+            <h4> <a href="https://www.linkedin.com/in/saad-sultan-aa4925219/">linkedIn
+                    Profile</a></h4>
+            <h4> <a href="https://github.com/saadsultan482">GitHub Profile</a></h4>
+        </div>
+
+    </div>
+
+    <script>
+        const generateMemeBtn = document.querySelector('.meme-generator .generate-meme-btn');
+        const memeImage = document.querySelector('.meme-generator img');
+        const memeTitle = document.querySelector('.meme-generator .meme-title');
+        const memeAuthor = document.querySelector('.meme-generator .meme-author');
+
+        const updateDetails = (url, title, author) => {
+            memeImage.setAttribute('src', url);
+            memeTitle.innerHTML = title;
+            memeAuthor.innerHTML = `Meme by @ ${author}`;
+
+        }
+
+        const generateMeme = () => {
+            fetch('https://meme-api.com/gimme/wholesomememes')
+                .then((response) => response.json())
+                .then((data) => {
+                    updateDetails(data.url, data.title, data.author);
+                });
+        };
+
+
+        generateMemeBtn.addEventListener('click', generateMeme);
+
+        generateMeme(); 
+    </script>
+</body>
+
+</html>
